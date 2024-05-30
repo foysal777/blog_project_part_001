@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+
+
+{% block css_add %}
+<style>
+
+    body{
+
+background-color: rgb(115, 227, 180);
+} 
+
+
+</style>
+{% endblock %}
+
+
+
+{% block main %}
+<h1 class="text-center p-5">This is Home page</h1>
+
+<div class="card_section d-flex justify-content-center gap-3 flex-wrap">
+  {% for post in data %}
+  <div
+    class="card border-success border-3 mb-3 col-sm-3"
+    style="max-width: 18rem">
+    <div class="card-header fw-bold text-light"
+      style="background-color: rgb(39, 91, 51)">{{post.title}}
+    </div>
+    <div class="card-body text-info">
+      <h5 class="card-title text-dark">{{post.content | truncatewords:20}}</h5>
+      <p class="text-primary fs-4">Author : {{post.authors.name}}</p>
+      <br />
+      <p class="text-dark fs-4">
+        Category : {% for cat in post.categorys.all %}
+
+        <button class="btn btn-warning btn-sm g-2">{{cat.name}}</button>
+
+        {% endfor %}
+      </p>
+      <a  href="{% url 'edit_post' post.id %}" class="btn btn-success">Edit</a>
+      <a  href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}
+<br/><br/>
